@@ -5,6 +5,7 @@ const models=require('./models');
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 let cliente=models.Cliente;
 let itempedido = models.itempedido;
@@ -15,15 +16,21 @@ app.get('/', function(req,res){
     res.send('Hello, World!')
 });
 
-app.get('/servicos', async(req,res) => {
-    await servico.create({
-        nome: "Nodejs",
-        descricao: "Desenvolvimento de aplicação back-end",
-        createAt: new Date(),
-        updateAt: new Date()
+app.post('/servicos', async(req,res) => {
+    await servico.create(
+        req.body
+    ).then(function(){
+        return res.json({
+            error: false,
+            message: "Serviço criado com sucesso!"
+        })
+    }).catch(function(erro){
+        return res.status(400).json({
+            error: true,
+            message: "Foi impossível se conectar"
+        })
     });
-    res.send("Serviço criado com sucesso!");
-})
+});
 
 app.get('/clientes', async(req,res) => {
     await cliente.create({
