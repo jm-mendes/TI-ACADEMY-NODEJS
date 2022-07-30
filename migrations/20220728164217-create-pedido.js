@@ -11,10 +11,6 @@ module.exports = {
       data: {
         type: Sequelize.DATEONLY
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       ClienteId : {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -25,6 +21,10 @@ module.exports = {
         //Exclui e atualiza tudo relacionado ao ID
         onDelete: 'CASCADE',
         OnUpdate: 'CASCADE'
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
